@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Generador de Credenciales Academia</title>
+  <meta name="description" content="Genera credenciales en PDF a partir de un archivo Excel. Todo el procesamiento ocurre en tu navegador, sin enviar datos a ningun servidor." />
+
+  <!-- Google Fonts: Montserrat + Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+
+  <!-- SheetJS — lectura de .xlsx -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+
+  <!-- jsPDF — generacion de PDF -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <div class="app-wrapper">
+
+    <!-- ═══ Panel lateral ═══ -->
+    <aside class="side-panel" aria-hidden="true">
+      <img src="logo.png" alt="Logo Academia" class="side-logo" />
+      <p class="side-tagline">Generador de<br>Credenciales</p>
+      <a href="https://www.google.com" target="_blank" rel="noopener" class="btn-tutorial">¿Cómo usar?</a>
+      <img src="personaje.png" alt="Personaje mascota" class="side-personaje" />
+    </aside>
+
+    <!-- ═══ Panel principal ═══ -->
+    <main class="app-card" role="main">
+
+      <!-- Header -->
+      <header class="header">
+        <h1>Genera tus<br><span>Credenciales</span> en segundos</h1>
+        <div class="divider"></div>
+        <p>Sube tu planilla Excel con los datos del alumnado y descarga el PDF con todas las credenciales listo para imprimir.</p>
+      </header>
+
+      <!-- Tabs de selección de origen -->
+      <div class="source-tabs">
+        <button class="source-tab active" id="tab-local" type="button">Archivo Local</button>
+        <button class="source-tab" id="tab-link" type="button">Google Sheets</button>
+      </div>
+
+      <!-- Zona de origen: Archivo Local -->
+      <div class="source-zone active-zone" id="zone-local">
+        <!-- Drop zone / selector de archivo -->
+        <div class="drop-zone" id="drop-zone" role="button" tabindex="0" aria-label="Seleccionar archivo Excel">
+          <input
+            type="file"
+            id="file-input"
+            accept=".xlsx"
+            aria-label="Seleccionar archivo .xlsx"
+          />
+          <span class="drop-icon" id="drop-icon" aria-hidden="true">📂</span>
+          <div class="drop-label" id="drop-label">
+            <strong>Arrastra tu archivo aquí</strong><br>
+            o haz clic para seleccionarlo
+            <small>Formato admitido: .xlsx (Excel / Google Sheets)</small>
+          </div>
+        </div>
+      </div>
+
+      <!-- Zona de origen: Enlace de Google Sheets -->
+      <div class="source-zone" id="zone-link" style="display:none;">
+        <div class="link-zone-container">
+          <label for="input-link" class="link-label">Pega el enlace de tu planilla pública</label>
+          <div class="link-input-group">
+            <input type="url" id="input-link" class="input-link" placeholder="https://docs.google.com/spreadsheets/d/..." aria-label="Enlace de Google Sheets" />
+            <button class="btn-load-link" id="btn-load-link" type="button">Cargar</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Pastilla limpia de planilla cargada (sin contenedor pesado) -->
+      <div class="source-loaded-badge" id="source-loaded-badge" style="display:none;" aria-live="polite">
+        <span id="source-loaded-name"></span>
+        <button id="btn-clear-source" class="btn-clear-file" type="button" aria-label="Quitar planilla">×</button>
+      </div>
+
+      <!-- Filtro de grupo (visible solo si la planilla tiene columna "grupo") -->
+      <div class="group-filter" id="group-filter" style="display:none;">
+        <label for="select-grupo" class="group-filter-label">Filtrar por grupo</label>
+        <select id="select-grupo" class="select-grupo">
+          <option value="todos">Todos los grupos</option>
+        </select>
+      </div>
+
+      <!-- Boton generar -->
+      <button class="btn-generate" id="btn-generate" type="button" disabled>
+        <div class="spinner" id="spinner" aria-hidden="true"></div>
+        <span id="btn-text">Generar PDF</span>
+      </button>
+
+      <!-- Status zone: privacidad / error / exito — siempre ocupa el mismo espacio -->
+      <div class="status-zone" id="status-zone">
+        <div class="privacy-badge" id="privacy-badge">
+          <span class="dot"></span>
+          Tus datos nunca salen del navegador — procesamiento 100% local.
+        </div>
+        <div class="message-box" id="message-box" role="alert" aria-live="assertive"></div>
+      </div>
+
+      <!-- Progreso -->
+      <section class="progress-section" id="progress-section" aria-live="polite" aria-label="Progreso de generacion">
+        <div class="progress-label">
+          <span id="progress-label-text">Generando credenciales...</span>
+          <span id="progress-text">0 de 0</span>
+        </div>
+        <div class="progress-track" role="progressbar" aria-valuemin="0" aria-valuemax="100">
+          <div class="progress-bar" id="progress-bar"></div>
+        </div>
+      </section>
+
+    </main>
+    <!-- fin .app-card -->
+
+  </div>
+  <!-- fin .app-wrapper -->
+
+  <script src="script.js"></script>
+</body>
+</html>

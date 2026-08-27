@@ -1,0 +1,709 @@
+/* ================================================
+   Credenciales App — style.css  (tema neumorfismo claro)
+   Paleta: celeste #1ab6d9 | blanco #fff | naranja #fe9405
+   ================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap');
+
+/* ── Reset ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+/* ── Variables ── */
+:root {
+  --cyan:          #1abee3;
+  --cyan-dark:     #14adcf;
+  --cyan-soft:     #d0f0f8;
+  --green:         #2ed389;
+  --green-soft:    #c0edd9;
+  --orange:        #fe9405;
+  --orange-dark:   #e07e00;
+  --white:         #ffffff;
+  --bg:            #F0F5FA;          /* fondo neutro para neumorfismo */
+  --neu-light:     #ffffff;
+  --neu-dark:      #c8d0d8;
+  --text-main:     #1d3a4a;
+  --text-muted:    #6b8fa3;
+  --text-light:    #9ab3c2;
+  --radius-card:   28px;
+  --radius-inner:  16px;
+  --radius-btn:    14px;
+
+  /* Sombras neumorficas limpias y suaves */
+  --shadow-out:        8px 8px 14px rgba(166, 185, 200, 0.42), -10px -10px 14px rgba(255, 255, 255, 1);
+  --shadow-inset:      inset 2px 2px 7px rgba(166, 185, 200, 0.32), inset -3px -3px 7px rgba(255, 255, 255, 0.95);
+  --shadow-btn:        3px 4px 12px rgba(166, 185, 200, 0.4), -3px -3px 10px #ffffff;
+  --shadow-btn-hover:  4px 6px 16px rgba(166, 185, 200, 0.5), -4px -4px 14px #ffffff;
+  --shadow-btn-active: inset 2px 2px 6px rgba(166, 185, 200, 0.35), inset -2px -2px 6px #ffffff;
+}
+
+html, body { height: 100%; }
+
+body {
+  font-family: 'Inter', sans-serif;
+  background: var(--bg);
+  color: var(--text-main);
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px 16px;
+}
+
+/* ── Layout principal ── */
+.app-wrapper {
+  display: flex;
+  align-items: stretch;
+  gap: 0;
+  width: 100%;
+  max-width: 900px;
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-out);
+  background: var(--bg);
+  overflow: hidden;
+  border-top: 3px solid #ffffff;
+  border-left: 3px solid #ffffff;
+  border-right: 2px solid #fcfcfc;
+  border-bottom: 2px solid #fcfcfc;
+}
+
+/* ── Panel lateral con personaje ── */
+.side-panel {
+  width: 300px;
+  flex-shrink: 0;
+  background: linear-gradient(160deg, var(--cyan) 0%, #0aa0c1 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 32px 24px 0;
+  position: relative;
+  overflow: hidden;
+  border-right: 2px solid #fcfcfc;
+}
+
+.side-panel::before {
+  content: '';
+  position: absolute;
+  top: -60px; right: -60px;
+  width: 200px; height: 200px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.09);
+}
+
+.side-panel::after {
+  content: '';
+  position: absolute;
+  bottom: 40px; left: -50px;
+  width: 160px; height: 160px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.09);
+}
+
+.side-logo {
+  position: absolute;
+  top: 30px;
+  left: 30px;
+  width: 160px;
+  object-fit: contain;
+  filter: brightness(0) invert(1);
+  z-index: 2;
+}
+
+.side-tagline {
+  position: absolute;
+  top: 150px;
+  left: 0; right: 0;
+  text-align: center;
+  color: rgba(255,255,255, 0.95);
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1.15rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  z-index: 2;
+}
+
+.btn-tutorial {
+  position: absolute;
+  top: 225px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 3;
+  padding: 10px 22px;
+  background: rgba(255, 255, 255, 0.18);
+  border: 1.5px solid rgba(255, 255, 255, 0.4);
+  border-radius: 24px;
+  color: rgba(255,255,255, 0.95);
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-decoration: none;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  transition: background 0.25s ease, transform 0.2s ease, box-shadow 0.25s ease;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+  text-align: center;
+  white-space: nowrap;
+}
+
+.btn-tutorial:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: translateX(-50%) translateY(-2px);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.12);
+}
+
+.btn-tutorial:active {
+  transform: translateX(-50%) translateY(0);
+}
+
+
+.side-personaje {
+  width: 100%;
+  max-width: 130px;
+  object-fit: contain;
+  position: relative;
+  left: -50px;
+  bottom: 30px;
+  z-index: 2;
+}
+
+/* ── Panel principal (formulario) ── */
+.app-card {
+  flex: 1;
+  background: var(--bg);
+  padding: 38px 36px 36px;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── Header ── */
+.header {
+  margin-bottom: 20px;
+}
+
+.header h1 {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1.55rem;
+  font-weight: 800;
+  color: var(--text-main);
+  line-height: 1.2;
+}
+
+.header h1 span {
+  color: var(--cyan);
+}
+
+.header p {
+  margin-top: 8px;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  line-height: 1.55;
+}
+
+/* ── Divisor decorativo ── */
+.divider {
+  width: 48px;
+  height: 4px;
+  border-radius: 99px;
+  background: linear-gradient(90deg, var(--cyan), var(--orange));
+  margin: 12px 0 18px;
+}
+
+/* ── Tabs de Origen ── */
+.source-tabs {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.source-tab {
+  flex: 1;
+  padding: 12px 16px;
+  border-radius: var(--radius-inner);
+  border: none;
+  background: var(--bg);
+  color: var(--text-muted);
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  font-size: 0.85rem;
+  cursor: pointer;
+  box-shadow: 3px 3px 8px rgba(166, 185, 200, 0.35), -3px -3px 8px rgba(255, 255, 255, 0.95);
+  transition: all 0.25s ease;
+}
+
+.source-tab:hover:not(.active) {
+  color: var(--cyan);
+  transform: translateY(-1px);
+  box-shadow: 4px 5px 12px rgba(166, 185, 200, 0.42), -4px -4px 10px #ffffff;
+}
+
+.source-tab.active {
+  background: linear-gradient(135deg, var(--cyan) 0%, var(--cyan-dark) 100%);
+  color: #ffffff;
+  font-weight: 700;
+  box-shadow: 0 4px 14px rgba(26, 190, 227, 0.35);
+  transform: translateY(0);
+}
+
+/* ── Zona de enlace ── */
+.link-zone-container {
+  border-radius: var(--radius-inner);
+  padding: 22px 20px;
+  background: var(--bg);
+  box-shadow: var(--shadow-inset);
+  text-align: left;
+}
+
+.link-label {
+  display: block;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  margin: 4px 0 14px 0;
+}
+
+.link-input-group {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.input-link {
+  flex: 1;
+  padding: 12px 16px;
+  border: 1px solid rgba(166, 185, 200, 0.35);
+  border-radius: 10px;
+  background: #ffffff;
+  box-shadow: inset 1px 1px 4px rgba(166, 185, 200, 0.18);
+  font-family: 'Inter', sans-serif;
+  font-size: 0.85rem;
+  color: var(--text-main);
+  outline: none;
+  margin-bottom: 0;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.input-link:focus {
+  border-color: var(--cyan);
+  box-shadow: 0 0 0 3px rgba(26, 190, 227, 0.2);
+}
+
+.btn-load-link {
+  padding: 0 20px;
+  border-radius: 8px;
+  border: none;
+  background: linear-gradient(135deg, var(--cyan) 20%, var(--cyan-dark) 100%);
+  color: #fff;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: var(--shadow-btn);
+  transition: transform 0.15s ease;
+  height: 42px;
+}
+
+.btn-load-link:hover {
+  transform: scale(0.96);
+}
+
+.btn-load-link:active {
+  transform: scale(0.92);
+}
+
+.btn-load-link:disabled {
+  background: #a3b8c4;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+/* ── Pastilla de planilla cargada (Limpia, sin contenedor pesado) ── */
+.source-loaded-badge {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 13px 18px;
+  border-radius: var(--radius-inner);
+  background: #eafaf1;
+  border: 1px solid #2ed38990;
+  color: var(--green);
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.2px;
+  word-break: break-all;
+  box-shadow: 0 3px 10px rgba(46, 211, 137, 0.15);
+  margin: 18px 0;
+  animation: fadeIn 0.25s ease;
+}
+
+/* ── Drop zone ── */
+.drop-zone {
+  border-radius: var(--radius-inner);
+  padding: 28px 20px;
+  text-align: center;
+  cursor: pointer;
+  position: relative;
+  background: var(--bg);
+  box-shadow: var(--shadow-inset);
+  transition: box-shadow 0.25s ease, border-color 0.25s ease;
+  border: 2px dashed transparent;
+}
+
+.drop-zone:hover,
+.drop-zone.drag-over {
+  border-color: var(--cyan);
+  box-shadow: inset 2px 2px 9px rgba(166, 185, 200, 0.4), inset -3px -3px 9px #ffffff;
+}
+
+.drop-zone input[type="file"] {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  cursor: pointer;
+  width: 100%;
+  height: 100%;
+}
+
+.drop-icon {
+  font-size: 2.4rem;
+  display: block;
+  margin-bottom: 10px;
+}
+
+.drop-label {
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  line-height: 1.65;
+}
+
+.drop-label strong {
+  color: var(--cyan-dark);
+  font-weight: 700;
+}
+
+.drop-label small {
+  display: block;
+  margin-top: 4px;
+  font-size: 0.78rem;
+  color: var(--text-light);
+}
+
+.btn-clear-file {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--green);
+  font-size: 1.1rem;
+  font-weight: 700;
+  line-height: 1;
+  padding: 0 2px;
+  opacity: 0.9;
+  transition: transform 0.15s ease;
+  flex-shrink: 0;
+}
+
+.btn-clear-file:hover {
+  opacity: 1;
+  transform: scale(1.4);
+}
+
+/* ── Botón generar ── */
+.btn-generate {
+  margin-top: 18px;
+  width: 100%;
+  padding: 16px 24px;
+  background: linear-gradient(135deg, var(--cyan) 0%, var(--cyan-dark) 100%);
+  color: #fff;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
+  font-size: 0.95rem;
+  letter-spacing: 0.5px;
+  border: none;
+  border-radius: var(--radius-btn);
+  cursor: pointer;
+  box-shadow: var(--shadow-btn);
+  transition: box-shadow 0.2s ease, transform 0.15s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Brillo interno en el boton */
+.btn-generate::before {
+  content: '';
+  position: absolute;
+  top: 0; left: -60%;
+  width: 50%;
+  height: 100%;
+  background: rgba(255,255,255,0.15);
+  transform: skewX(-20deg);
+  transition: left 0.4s ease;
+}
+
+.btn-generate:hover:not(:disabled)::before {
+  left: 120%;
+}
+
+.btn-generate:hover:not(:disabled) {
+  box-shadow: var(--shadow-btn-hover);
+  transform: translateY(-2px);
+}
+
+.btn-generate:active:not(:disabled) {
+  box-shadow: var(--shadow-btn-active);
+  transform: translateY(0);
+  background: linear-gradient(135deg, var(--cyan-dark) 0%, var(--cyan) 100%);
+}
+
+.btn-generate:disabled {
+  background: #a3b8c4;
+  color: var(--text-main);
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+/* ── Status zone: privacidad / error / exito (espacio compartido) ── */
+.status-zone {
+  margin-top: 16px;
+}
+
+/* ── Badge de privacidad ── */
+.privacy-badge {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 15px;
+  border-radius: 10px;
+  background: var(--bg);
+  box-shadow: 2px 2px 6px rgba(166, 185, 200, 0.35), -2px -2px 6px #ffffff;
+  font-size: 0.72rem;
+  color: var(--text-muted);
+}
+
+.privacy-badge .dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #4cca8a;
+  flex-shrink: 0;
+  box-shadow: 0 0 6px rgba(76,202,138,0.6);
+}
+
+/* ── Progreso ── */
+.progress-section {
+  margin-top: 14px;
+  display: none;
+  padding: 16px 18px;
+  border-radius: var(--radius-inner);
+  background: var(--bg);
+  box-shadow: var(--shadow-inset);
+  transition: background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.progress-section.visible { display: block; }
+
+.progress-section.completed {
+  background: var(--green-soft);
+  border: 1px solid #2ed38990;
+  box-shadow: none;
+}
+
+.progress-label {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: space-between;
+  font-weight: 500;
+}
+
+.progress-section.completed .progress-label {
+  color: var(--green);
+  font-weight: 600;
+}
+
+.progress-label span:last-child {
+  color: var(--cyan-dark);
+  font-weight: 700;
+}
+
+.progress-section.completed .progress-label span:last-child {
+  color: var(--green);
+  font-weight: 700;
+}
+
+.progress-track {
+  height: 8px;
+  background: var(--bg);
+  border-radius: 99px;
+  overflow: hidden;
+  box-shadow: inset 2px 2px 5px rgba(166, 185, 200, 0.35), inset -2px -2px 5px #ffffff;
+}
+
+.progress-section.completed .progress-track {
+  background: rgba(46, 211, 137, 0.2);
+  box-shadow: none;
+}
+
+.progress-bar {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, var(--cyan) 0%, var(--orange) 100%);
+  border-radius: 99px;
+  transition: width 0.25s ease;
+}
+
+.progress-section.completed .progress-bar {
+  background: var(--green);
+}
+
+/* ── Mensajes ── */
+.message-box {
+  padding: 13px 18px;
+  border-radius: 12px;
+  font-size: 0.85rem;
+  line-height: 1.55;
+  display: none;
+  font-weight: 500;
+}
+
+.message-box.visible { display: block; }
+
+.message-box.error {
+  background: #fff0f0;
+  border-left: 4px solid #e05050;
+  color: #b03030;
+  box-shadow: 2px 2px 8px rgba(166, 185, 200, 0.3), -2px -2px 8px #ffffff;
+}
+
+.message-box.success {
+  background: #f0fbf6;
+  border-left: 4px solid #4cca8a;
+  color: #2a7a52;
+  box-shadow: 2px 2px 8px rgba(166, 185, 200, 0.3), -2px -2px 8px #ffffff;
+}
+
+.message-box.warn {
+  background: #fff8ee;
+  border-left: 4px solid var(--orange);
+  color: #8a5500;
+  box-shadow: 2px 2px 8px rgba(166, 185, 200, 0.3), -2px -2px 8px #ffffff;
+}
+
+/* ── Filtro de grupo ── */
+.group-filter {
+  margin-top: 14px;
+}
+
+.group-filter-label {
+  display: block;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  margin-bottom: 8px;
+}
+
+.select-grupo {
+  width: 100%;
+  padding: 11px 16px;
+  border: none;
+  border-radius: var(--radius-inner);
+  background: var(--bg);
+  color: var(--text-main);
+  font-family: 'Inter', sans-serif;
+  font-size: 0.88rem;
+  font-weight: 500;
+  box-shadow: var(--shadow-inset);
+  cursor: pointer;
+  appearance: none;                   /* quita flecha nativa */
+  -webkit-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%236b8fa3' stroke-width='1.8' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  padding-right: 38px;
+  transition: box-shadow 0.2s ease;
+  outline: none;
+}
+
+.select-grupo:focus {
+  box-shadow: inset 1px 1px 5px rgba(166, 185, 200, 0.35), inset -1px -1px 5px #ffffff,
+              0 0 0 2px rgba(26, 182, 217, 0.25);
+}
+
+.select-grupo option {
+  background: #f0f4f8;
+  color: var(--text-main);
+}
+
+/* ── Spinner ── */
+.spinner {
+  width: 18px; height: 18px;
+  border: 2.5px solid rgba(255,255,255,0.35);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+  display: none;
+  flex-shrink: 0;
+}
+
+.spinner.visible { display: block; }
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ── Responsive ── */
+@media (max-width: 680px) {
+  .app-wrapper {
+    flex-direction: column;
+    max-width: 420px;
+  }
+
+  .side-panel {
+    width: 100%;
+    height: 200px;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 28px;
+  }
+
+  .side-logo {
+    position: static;
+    transform: none;
+    width: 90px;
+  }
+
+  .side-tagline {
+    position: static;
+    text-align: left;
+    flex: 1;
+    padding: 0 16px;
+    font-size: 0.8rem;
+  }
+
+  .btn-tutorial {
+    position: static;
+    transform: none;
+    margin: 0 12px;
+    padding: 8px 16px;
+    font-size: 0.72rem;
+    box-shadow: none;
+  }
+
+  .btn-tutorial:hover {
+    transform: translateY(-1px);
+  }
+
+
+  .side-personaje {
+    max-width: 120px;
+    position: static;
+  }
+
+  .app-card {
+    padding: 32px 24px;
+  }
+}
