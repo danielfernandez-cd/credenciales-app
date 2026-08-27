@@ -26,7 +26,7 @@ const CONFIG = {
     usuario: {
       x:           280,
       y:           840,
-      maxWidth:    640,
+      maxWidth:    600,
       align:       'left',
       maxFontSize: 50,
       minFontSize: 18,
@@ -36,7 +36,7 @@ const CONFIG = {
     contrasena: {
       x:           280,
       y:           1100,
-      maxWidth:    640,
+      maxWidth:    600,
       align:       'left',
       maxFontSize: 50,
       minFontSize: 18,
