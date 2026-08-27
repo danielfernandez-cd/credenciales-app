@@ -16,7 +16,7 @@ const CONFIG = {
     nombre: {
       x:           531,   // centro horizontal del canvas
       y:           500,   // posicion vertical (baseline del texto)
-      maxWidth:    800,   // ancho maximo antes de reducir fuente
+      maxWidth:    600,   // ancho maximo antes de reducir fuente
       align:       'center',
       maxFontSize: 70,    // tamano de fuente maximo (px)
       minFontSize: 20,    // tamano de fuente minimo (px)
