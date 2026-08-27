@@ -16,7 +16,7 @@ const CONFIG = {
     nombre: {
       x:           531,   // centro horizontal del canvas
       y:           500,   // posicion vertical (baseline del texto)
-      maxWidth:    800,   // ancho maximo antes de reducir fuente
+      maxWidth:    770,   // ancho maximo antes de reducir fuente
       align:       'center',
       maxFontSize: 70,    // tamano de fuente maximo (px)
       minFontSize: 20,    // tamano de fuente minimo (px)
@@ -26,7 +26,7 @@ const CONFIG = {
     usuario: {
       x:           280,
       y:           840,
-      maxWidth:    660,
+      maxWidth:    640,
       align:       'left',
       maxFontSize: 50,
       minFontSize: 18,
@@ -36,7 +36,7 @@ const CONFIG = {
     contrasena: {
       x:           280,
       y:           1100,
-      maxWidth:    660,
+      maxWidth:    640,
       align:       'left',
       maxFontSize: 50,
       minFontSize: 18,
