@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Generador de Credenciales Academia</title>
-  <meta name="description" content="Genera credenciales en PDF a partir de un archivo Excel. Todo el procesamiento ocurre en tu navegador, sin enviar datos a ningun servidor." />
+  <meta name="description" content="Genera credenciales en PDF para tus alumnos a partir de la planilla de tu colegio." />
 
   <!-- Google Fonts: Montserrat + Inter -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -24,11 +24,11 @@
   <div class="app-wrapper">
 
     <!-- ═══ Panel lateral ═══ -->
-    <aside class="side-panel" aria-hidden="true">
+    <aside class="side-panel">
       <img src="logo.png" alt="Logo Academia" class="side-logo" />
-      <p class="side-tagline">Generador de<br>Credenciales</p>
-      <a href="https://www.google.com" target="_blank" rel="noopener" class="btn-tutorial">¿Cómo usar?</a>
-      <img src="personaje.png" alt="Personaje mascota" class="side-personaje" />
+      <p class="side-tagline" aria-hidden="true">Generador de<br>Credenciales</p>
+      <a href="https://view.genially.com/6ab6fdc5ac07c45c35d7a7fa" target="_blank" rel="noopener" class="btn-tutorial" id="btn-tutorial">¿Cómo usar?</a>
+      <img src="personaje.png" alt="" class="side-personaje" aria-hidden="true" />
     </aside>
 
     <!-- ═══ Panel principal ═══ -->
@@ -36,7 +36,7 @@
 
       <!-- Header -->
       <header class="header">
-        <h1>Genera tus<br><span>Credenciales</span> en segundos</h1>
+        <h1>Genera tus <br><span>Credenciales</span> en segundos</h1>
         <div class="divider"></div>
         <p>Sube tu planilla Excel con los datos del alumnado y descarga el PDF con todas las credenciales listo para imprimir.</p>
       </header>
@@ -59,8 +59,9 @@
           />
           <span class="drop-icon" id="drop-icon" aria-hidden="true">📂</span>
           <div class="drop-label" id="drop-label">
-            <strong>Arrastra tu archivo aquí</strong><br>
-            o haz clic para seleccionarlo
+            <span class="label-pointer"><strong>Arrastra tu archivo aquí</strong><br>
+            o haz clic para seleccionarlo</span>
+            <span class="label-touch"><strong>Toca para elegir tu archivo</strong></span>
             <small>Formato admitido: .xlsx (Excel / Google Sheets)</small>
           </div>
         </div>
@@ -122,6 +123,24 @@
 
   </div>
   <!-- fin .app-wrapper -->
+
+  <!-- ═══ Ventana emergente: guía "¿Cómo usar?" (solo PC; en celular se abre en pestaña nueva) ═══ -->
+  <div class="guide-modal" id="guide-modal" hidden>
+    <div class="guide-backdrop" id="guide-backdrop"></div>
+    <div class="guide-dialog" role="dialog" aria-modal="true" aria-labelledby="guide-title">
+      <div class="guide-header">
+        <h2 id="guide-title">¿Cómo usar?</h2>
+        <div class="guide-actions">
+          <a href="https://view.genially.com/6ab6fdc5ac07c45c35d7a7fa" target="_blank" rel="noopener" class="guide-newtab">Abrir en pestaña nueva ↗</a>
+          <button class="guide-close" id="guide-close" type="button" aria-label="Cerrar guía">×</button>
+        </div>
+      </div>
+      <div class="guide-frame">
+        <!-- El src se asigna recién al abrir la ventana por primera vez (ver script.js) -->
+        <iframe id="guide-iframe" title="Guía - Credenciales App" allowfullscreen></iframe>
+      </div>
+    </div>
+  </div>
 
   <script src="script.js"></script>
 </body>
