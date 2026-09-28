@@ -3,8 +3,6 @@
    Paleta: celeste #1ab6d9 | blanco #fff | naranja #fe9405
    ================================================ */
 
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap');
-
 /* ── Reset ── */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -36,16 +34,13 @@
   --shadow-btn-active: inset 2px 2px 6px rgba(166, 185, 200, 0.35), inset -2px -2px 6px #ffffff;
 }
 
-html, body { height: 100%; }
-
 body {
   font-family: 'Inter', sans-serif;
   background: var(--bg);
   color: var(--text-main);
   min-height: 100vh;
+  min-height: 100dvh;   /* alto real visible en moviles (sin contar barras del navegador) */
   display: flex;
-  align-items: center;
-  justify-content: center;
   padding: 24px 16px;
 }
 
@@ -56,6 +51,7 @@ body {
   gap: 0;
   width: 100%;
   max-width: 900px;
+  margin: auto;   /* centra vertical y horizontalmente sin recortar si no entra en pantalla */
   border-radius: var(--radius-card);
   box-shadow: var(--shadow-out);
   background: var(--bg);
@@ -654,56 +650,216 @@ body {
 
 @keyframes spin { to { transform: rotate(360deg); } }
 
+/* ── Ventana emergente: guia "¿Como usar?" ── */
+body.modal-open { overflow: hidden; }
+
+.guide-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+.guide-modal[hidden] { display: none; }
+
+.guide-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(29, 58, 74, 0.55);
+  backdrop-filter: blur(3px);
+  animation: fadeIn 0.2s ease;
+}
+
+.guide-dialog {
+  position: relative;
+  /* El ancho se limita tambien por el alto disponible para que el 16:9 siempre entre en pantalla */
+  width: min(1100px, 100%, calc((100vh - 48px - 58px - 16px) * 16 / 9));
+  background: var(--bg);
+  border-radius: 20px;
+  padding: 8px 8px 8px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  animation: modalIn 0.25s ease;
+}
+
+.guide-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 6px 8px 10px 14px;
+}
+
+.guide-header h2 {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: var(--text-main);
+}
+
+.guide-actions {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.guide-newtab {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--cyan-dark);
+  text-decoration: none;
+}
+
+.guide-newtab:hover { text-decoration: underline; }
+
+.guide-close {
+  width: 34px;
+  height: 34px;
+  border: none;
+  border-radius: 50%;
+  background: var(--bg);
+  color: var(--text-muted);
+  font-size: 1.4rem;
+  line-height: 1;
+  cursor: pointer;
+  box-shadow: var(--shadow-btn);
+  transition: color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.guide-close:hover {
+  color: var(--orange);
+  box-shadow: var(--shadow-btn-hover);
+}
+
+.guide-frame {
+  aspect-ratio: 16 / 9;
+  border-radius: 14px;
+  overflow: hidden;
+  background: #dfe8ef;
+}
+
+.guide-frame iframe {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+@keyframes fadeIn  { from { opacity: 0; } to { opacity: 1; } }
+@keyframes modalIn { from { opacity: 0; transform: translateY(12px) scale(0.98); } to { opacity: 1; transform: none; } }
+
+/* ── Texto del drop zone segun tipo de dispositivo ── */
+.label-touch { display: none; }
+
+/* Pantallas tactiles (celular / tablet): no se puede arrastrar archivos */
+@media (hover: none) and (pointer: coarse) {
+  .label-pointer { display: none; }
+  .label-touch   { display: inline; }
+}
+
 /* ── Responsive ── */
 @media (max-width: 680px) {
+  body {
+    padding: 16px;
+  }
+
   .app-wrapper {
     flex-direction: column;
     max-width: 420px;
   }
 
+  /* Panel lateral -> barra superior compacta: logo + boton de ayuda */
   .side-panel {
     width: 100%;
-    height: 200px;
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    padding: 20px 28px;
+    gap: 12px;
+    padding: 18px 20px;
+    border-right: none;
   }
 
   .side-logo {
     position: static;
-    transform: none;
-    width: 90px;
+    width: 120px;
   }
 
-  .side-tagline {
-    position: static;
-    text-align: left;
-    flex: 1;
-    padding: 0 16px;
-    font-size: 0.8rem;
+  /* Redundantes en movil: el titulo ya dice "Credenciales" y la mascota no entra */
+  .side-tagline,
+  .side-personaje {
+    display: none;
   }
 
   .btn-tutorial {
     position: static;
     transform: none;
-    margin: 0 12px;
-    padding: 8px 16px;
-    font-size: 0.72rem;
+    padding: 8px 14px;
+    font-size: 0.68rem;
     box-shadow: none;
   }
 
-  .btn-tutorial:hover {
-    transform: translateY(-1px);
-  }
-
-
-  .side-personaje {
-    max-width: 120px;
-    position: static;
+  .btn-tutorial:hover,
+  .btn-tutorial:active {
+    transform: none;
   }
 
   .app-card {
-    padding: 32px 24px;
+    padding: 24px 20px 22px;
+  }
+
+  .header {
+    margin-bottom: 16px;
+  }
+
+  .header h1 {
+    font-size: 1.35rem;
+  }
+
+  .header h1 br {
+    display: none;
+  }
+
+  .divider {
+    margin: 10px 0 12px;
+  }
+
+  .header p {
+    font-size: 0.8rem;
+  }
+
+  .source-tabs {
+    gap: 10px;
+  }
+
+  .source-tab {
+    padding: 11px 10px;
+    font-size: 0.8rem;
+  }
+
+  .drop-zone {
+    padding: 20px 16px;
+  }
+
+  .drop-icon {
+    font-size: 2rem;
+    margin-bottom: 6px;
+  }
+
+  .link-zone-container {
+    padding: 18px 16px;
+  }
+}
+
+/* Celulares muy angostos: el campo de enlace y el boton "Cargar" se apilan */
+@media (max-width: 380px) {
+  .link-input-group {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .btn-load-link {
+    width: 100%;
   }
 }
