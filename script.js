@@ -16,7 +16,7 @@ const CONFIG = {
     nombre: {
       x:           531,   // centro horizontal del canvas
       y:           500,   // posicion vertical (baseline del texto)
-      maxWidth:    770,   // ancho maximo antes de reducir fuente
+      maxWidth:    760,   // ancho maximo antes de reducir fuente
       align:       'center',
       maxFontSize: 70,    // tamano de fuente maximo (px)
       minFontSize: 20,    // tamano de fuente minimo (px)
@@ -57,6 +57,9 @@ const CONFIG = {
 
   // Columnas requeridas en el Excel (case-insensitive)
   requiredColumns: ['nombre', 'apellido', 'usuario academia', 'contraseña academia'],
+
+  // Presentacion de Genially con la guia "¿Como usar?"
+  guideUrl: 'https://view.genially.com/6ab6fdc5ac07c45c35d7a7fa',
 };
 
 /* ── Referencias al DOM ── */
@@ -86,8 +89,46 @@ const groupFilter        = document.getElementById('group-filter');
 const selectGrupo        = document.getElementById('select-grupo');
 const spinner            = document.getElementById('spinner');
 
+const btnTutorial        = document.getElementById('btn-tutorial');
+const guideModal         = document.getElementById('guide-modal');
+const guideBackdrop      = document.getElementById('guide-backdrop');
+const guideClose         = document.getElementById('guide-close');
+const guideIframe        = document.getElementById('guide-iframe');
+
 let selectedFile = null;
 let cachedRows = null;
+
+/* ── Guia "¿Como usar?" ──
+   PC: ventana emergente con la presentacion en un iframe.
+   Celular: se deja el comportamiento normal del enlace (pestaña nueva). */
+const mobileQuery = window.matchMedia('(max-width: 680px)');
+
+btnTutorial.addEventListener('click', e => {
+  if (mobileQuery.matches) return;
+  e.preventDefault();
+  openGuide();
+});
+
+guideClose.addEventListener('click', closeGuide);
+guideBackdrop.addEventListener('click', closeGuide);
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape' && !guideModal.hidden) closeGuide();
+});
+
+function openGuide() {
+  // Carga diferida: el iframe solo se carga la primera vez que se abre
+  if (!guideIframe.src) guideIframe.src = CONFIG.guideUrl;
+  guideModal.hidden = false;
+  document.body.classList.add('modal-open');
+  guideClose.focus();
+}
+
+function closeGuide() {
+  guideModal.hidden = true;
+  document.body.classList.remove('modal-open');
+  btnTutorial.focus();
+}
 
 /* ── Cambio de pestañas (Tabs) ── */
 tabLocal.addEventListener('click', () => {
